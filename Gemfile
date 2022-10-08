@@ -54,22 +54,47 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+
+  gem 'pry-rails', '~> 0.3.9'
+  gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
+  gem 'factory_bot_rails', '~> 6.2'
 end
 
 group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
+  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  gem 'web-console', '>= 3.3.0'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
 
-  # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
+  gem 'better_errors', '~> 2.9', '>= 2.9.1'
+  gem 'binding_of_caller', '~> 1.0'
+  gem 'annotate', '~> 3.2'
 
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  gem 'letter_opener', '~> 1.8', '>= 1.8.1'
+
+  gem 'guard', '~> 2.18'
+  gem 'guard-rspec', '~> 4.7', '>= 4.7.3', require: false
+  gem 'guard-livereload', '~> 2.5', '>= 2.5.2', require: false
+  gem 'spring-commands-rspec', '~> 1.0', '>= 1.0.4'
 end
 
 group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
-  gem "webdrivers"
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '~> 3.37', '>= 3.37.1'
+  gem 'selenium-webdriver'
+  # Easy installation and use of web drivers to run system tests with browsers
+  gem 'webdrivers'
+
+  gem 'launchy', '~> 2.5'
+  gem 'shoulda-matchers', '~> 5.1'
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
 end
+
+gem "devise", "~> 4.8"
+gem "faker", "~> 2.23"
+gem "figaro", "~> 1.2"
+gem "omniauth-facebook", "~> 9.0"
+gem "omniauth-github", "~> 2.0"
+gem "omniauth-rails_csrf_protection", "~> 1.0"
+gem "geocoder", "~> 1.8"
+gem "simple_form", "~> 5.1"
