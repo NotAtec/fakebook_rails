@@ -98,3 +98,5 @@ gem "omniauth-github", "~> 2.0"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "geocoder", "~> 1.8"
 gem "simple_form", "~> 5.1"
+
+gem "gravtastic", "~> 3.2"
