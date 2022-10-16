@@ -11,20 +11,66 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if flash[:notice] %>
+  		<div class="notification is-primary global-notification">
+  			<p class="notice"><%= notice %></p>
+  		</div>
+  	<% end %>
+  	<% if flash[:alert] %>
+  		<div class="notification is-danger global-notification">
+  			<p class="alert"><%= alert %></p>
+  		</div>
+  	<% end %>
     <div class="navbar">
       <div class="navbar-brand">
-        <div class="navbar-burger"></div>
+        <div class="navbar-burger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
       <div class="navbar-menu">
+        <div class="navbar-brand">
+          <%= link_to about_path, class: "navbar-item" do %>
+            <h1 id="top-left-title" class="title">Fakebook</h1>
+          <% end %>
+        </div>
         <div class="navbar-start">
-          <%= link_to "About", about_path, class: "navbar-item"%>
+          <div class="navbar-item">
+            <p class="control"><u><%= link_to "About", about_path, class: "has-text-black" %></u></p>
+          </div>
         </div>  
         <div class="navbar-end">
+          <% if user_signed_in? %>
+            <div class="navbar-item" id="dd">
+              <div class="dropdown">
+                <span class="icon">
+                </span>
+                <span>User Name</span>
+                <span class="icon is-small"></span>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                  <p class="dropdown-item">Show Profile</p>
+                  <p class="dropdown-item">Settings</p>
+                  <p class="dropdown-item">Logout</p>
+                </div>
+              </div>
+            </div>
+          <% else %>
+            <div class="navbar-item">
+              <p class="control"><%= link_to "Login", new_user_session_path, class: "has-text-black" %></p>
+            </div>
+            <div class="navbar-item">
+              <p class="control"><%= link_to "Sign Up", new_user_registration_path, class: "has-text-black" %></p>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
     <%= yield %>
+    <footer>
+      <div class="content has-text-centered"><p><strong>FakeBook</strong>, a basic recreation of <a href="https://www.facebook.com">FaceBook</a>. Made by <a href="https://github.com/NotAtec">Jeroen Brinkhorst</a></p></div>
+    </footer>
   </body>
 </html>

@@ -1,0 +1,22 @@
+/* SASS Doc for page header */
+
+nav.navbar {
+  height: 72px;
+}
+
+
+#dd:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown-content+p:hover {
+  background-color: $highlight;
+}
+
+.dropdown-trigger>button {
+  border: 0;
+}
+
+#dropdown-div {
+  padding: 16px 7px;
+}
