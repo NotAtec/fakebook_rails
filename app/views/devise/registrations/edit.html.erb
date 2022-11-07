@@ -53,7 +53,7 @@
         <% end %>
         <br>
         <h3><b>Unhappy with our service?</b></h3>
-        <% if current_user.username == 'Odin' %>
+        <% if current_user.first_name == 'Odin' %>
           <p><%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, disabled: true, class: "button is-danger" %></p>
         <% else %>
           <p><%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "button is-danger" %></p>
