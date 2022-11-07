@@ -1,0 +1,93 @@
+<section>
+  <div class="columns is-centered">
+    <div class="column is-two-thirds">
+      <h1 class="title">Friends</h1>
+      <% if @friends.nil? %>
+        <p>You have no friends yet... Maybe Oding wants to be your friend!</p>
+      <% else %>
+        <div class="request-grid">
+          <% @friends.each do |user| %>
+            <% if user != current_user %>
+              <div class="card">
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-left">
+                      <figure class="image is-48x48">
+                        <!-- add procedural grabber when gravatar -->
+                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder Avatar">
+                      </figure>
+                    </div>
+                    <div class="media-content">
+                      <p class="title is-4"><%= user.full_name %></p>
+                      <p class="subtitle is-6"><%= link_to "Profile", user_path(user) %></p>
+                    </div>
+                  </div>
+                  <footer class="card-footer">
+                    <%= button_to "Remove Friend", remove_friendship_user_path(user), class: "button is-danger" %>
+                  </footer>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+      <br>
+      <h2 class="subtitle">Requests</h2>
+      <% if @received.nil? %>
+        <p>You have no friend requests.</p>
+      <% else %>
+        <div class="request-grid">
+          <% @received.each do |user| %>
+              <div class="card">
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-left">
+                      <figure class="image is-48x48">
+                        <!-- add procedural grabber when gravatar -->
+                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder Avatar">
+                      </figure>
+                    </div>
+                    <div class="media-content">
+                      <p class="title is-4"><%= user.full_name %></p>
+                      <p class="subtitle is-6"><%= link_to "Profile", user_path(user) %></p>
+                    </div>
+                  </div>
+                  <footer class="card-footer">
+                    <%= button_to "Accept Request", accept_friendship_user_path(user), class: "button is-success" %>
+                    <%= button_to "Decline Request", remove_friendship_user_path(user), class: "button is-danger" %>
+                  </footer>
+                </div>
+              </div>
+          <% end %>
+        </div>
+      <% end %>
+      <br>
+      <h2 class="subtitle">All Other Users</h2>
+      <div class="request-grid">
+        <% @users.each do |user| %>
+          <% if user != current_user && !@received.include?(user) && !@friends.include?(user)%>
+            <div class="card">
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <!-- add procedural grabber when gravatar -->
+                      <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder Avatar">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-4"><%= user.full_name %></p>
+                    <p class="subtitle is-6"><%= link_to "Profile", user_path(user) %></p>
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <%= button_to "Add Friend", request_friendship_user_path(user), class: "button is-info" %>
+                </footer>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
