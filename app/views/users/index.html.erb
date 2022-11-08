@@ -81,7 +81,11 @@
                   </div>
                 </div>
                 <footer class="card-footer">
-                  <%= button_to "Add Friend", request_friendship_user_path(user), class: "button is-info" %>
+                  <% if @sent_requests.include?(user) %>
+                    <%= button_to "Cancel Request", remove_friendship_user_path(user), class: "button is-danger" %>
+                  <% else %>
+                    <%= button_to "Add Friend", request_friendship_user_path(user), class: "button is-info" %>
+                  <% end %>
                 </footer>
               </div>
             </div>

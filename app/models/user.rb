@@ -21,12 +21,26 @@ class User < ApplicationRecord
     friends_array.compact
   end
 
+  def outbound_requests
+    requests.map { |request| request.friend_id unless request.confirmed }.compact
+  end
+
   def received_requests
     inbound_requests.map { |request| request.user.id unless request.confirmed }
   end
 
   def send_invitation(user)
     requests.create(friend_id: user.id) unless self == user || Request.exists?(self.id, user.id)
+  end
 
+  def accept_invitation(user)
+    request = Request.find_by(user_id: user.id, friend_id: self.id)
+    request.confirmed = true
+    request.save
+  end
+
+  def remove_friendship(user)
+    request = Request.find(user.id, self.id)
+    request.destroy
   end
 end

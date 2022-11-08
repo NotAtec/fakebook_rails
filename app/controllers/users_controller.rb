@@ -1,54 +1,66 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :friends]
 
   def index
     # all users listed here with friend options (request, accept, remove)
     @users = User.all
     @received = User.where(id: current_user.received_requests)
     @friends = User.where(id: current_user.friends)
+    @sent_requests = User.where(id: current_user.outbound_requests)
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def edit
-    @user = User.find(params[:id])
   end
   
   def update
-    @user = User.find(params[:id])
-    if @user.update(user_params)
-      redirect_to @user
-    else
-      render 'edit'
+    respond_to do |format|
+      if @user.update(user_params)
+        format.html { redirect_to @user, notice: 'Profile was successfully updated.' }
+        format.json { render :show, status: :ok, location: @user }
+      else
+        format.html { render :edit, status: :unprocessable_entity}
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def friends
     # Lists all user friends
-    @user = User.find(params[:user_id])
     @friends = User.where(id: @user.friends)
   end
 
   def request_friendship
     current_user.send_invitation(User.find(params[:id]))
-    redirect_to users_path
+    respond_to do |format|
+      format.html { redirect_to users_path, notice: 'Friend request sent.' }
+      format.json { head :no_content }
+    end
   end
 
   def accept_friendship
-    request = Request.find_by(user_id: params[:id], friend_id: current_user.id)
-    request.confirmed = true
-    request.save
-    redirect_to users_path
+    current_user.accept_invitation(User.find(params[:id]))
+    respond_to do |format|
+      format.html { redirect_to users_path, notice: 'Friend request accepted.' }
+      format.json { head :no_content }
+    end
   end
 
   def remove_friendship
-    request = Request.find(params[:id], current_user.id)
-    request.destroy
-    redirect_to users_path
+    current_user.remove_friendship(User.find(params[:id]))
+    respond_to do |format|
+      format.html { redirect_to users_path, alert: 'Friend removed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :bio, :avatar)
