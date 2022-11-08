@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   has_many :requests
   has_many :inbound_requests, class_name: 'Request', foreign_key: "friend_id"
+  has_many :notifications
 
   def full_name
     "#{first_name} #{last_name}"
