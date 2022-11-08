@@ -45,8 +45,20 @@
             <div class="navbar-item" id="dd">
               <div class="dropdown">
                 <span class="icon">
+                  <%= image_tag("bell-ring-outline.svg") %>
                 </span>
-                <span><p class="has-text-info"><b><%= current_user.full_name%></b></p></span>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                  <%= render 'notification'%>
+                </div>
+              </div>
+            </div>
+            <div class="navbar-item" id="dd">
+              <div class="dropdown">
+                <span class="icon">
+                </span>
+                <span><p><b><%= current_user.full_name%></b></p></span>
                 <span class="icon is-small"></span>
               </div>
               <div class="dropdown-menu" id="dropdown-menu" role="menu">
