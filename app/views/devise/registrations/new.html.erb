@@ -3,7 +3,7 @@
     <div class="columns is-centered">
       <div class="column is-one-third">
         <h1 class="title ">Sign Up</h1>
-        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: { turbo: false }) do |f| %>
           <%= f.error_notification %>
           <div class="field">
             <div class="control">
