@@ -1,0 +1,29 @@
+<div class="request-grid">
+  <% @users.each do |user| %>
+    <% if user != current_user && !@received.include?(user) && !@friends.include?(user)%>
+      <div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-48x48">
+                <!-- add procedural grabber when gravatar -->
+                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder Avatar">
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="title is-4"><%= user.full_name %></p>
+              <p class="subtitle is-6"><%= link_to "Profile", user_path(user) %></p>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <% if @sent_requests.include?(user) %>
+              <%= button_to "Cancel Request", remove_friendship_user_path(user), class: "button is-danger" %>
+            <% else %>
+              <%= button_to "Add Friend", request_friendship_user_path(user), class: "button is-info" %>
+            <% end %>
+          </footer>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

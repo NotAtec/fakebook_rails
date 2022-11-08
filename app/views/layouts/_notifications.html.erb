@@ -1,0 +1,13 @@
+<% @notifications.each do |n| %>
+  <div class="box dropdown-item">
+    <div class="level">
+      <div class="level-left">
+        <span class="level-item icon is-small"><%= image_tag('bell-ring-outline.svg') %></span>
+        <p class="level-item"><%= n.title %></p>
+      </div>
+      <div class="level-right">
+        BTN
+      </div>
+    </div>
+  </div>
+<% end %>
