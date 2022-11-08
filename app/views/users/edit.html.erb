@@ -1,0 +1,44 @@
+<div class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-one-third">
+        <h1 class="title">Change your Profile info</h1>
+        <%= simple_form_for(@user) do |f| %>
+          <%= f.error_notification %>
+
+          <div class="field">
+            <div class="control">
+              <%= f.input :first_name,
+                          label: "First Name",
+                          wrapper: false,
+                          required: true,
+                          input_html: { class: "input", autocomplete: "first_name" },
+                          label_html: { class: "label" } %>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <%= f.input :last_name,
+                          label: "Last Name",
+                          wrapper: false,
+                          required: true,
+                          input_html: { class: "input", autocomplete: "last_name" },
+                          label_html: { class: "label" } %>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <%= f.input :bio,
+                          label: "Bio",
+                          wrapper: false,
+                          required: false,
+                          input_html: { class: "input", autocomplete: "bio" },
+                          label_html: { class: "label" } %>
+            </div>
+          </div>
+          <%= f.button :submit, "Change Profile Info", class: "button is-primary"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

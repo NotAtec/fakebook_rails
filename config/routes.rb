@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post :accept_friendship
       post :remove_friendship
     end
+    get :friends
   end
 
   # Defines the root path route ("/")

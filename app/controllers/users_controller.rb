@@ -11,6 +11,25 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+  
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
+  def friends
+    # Lists all user friends
+    @user = User.find(params[:user_id])
+    @friends = User.where(id: @user.friends)
+  end
+
   def request_friendship
     current_user.send_invitation(User.find(params[:id]))
     redirect_to users_path
@@ -27,5 +46,11 @@ class UsersController < ApplicationController
     request = Request.find(params[:id], current_user.id)
     request.destroy
     redirect_to users_path
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :bio, :avatar)
   end
 end
