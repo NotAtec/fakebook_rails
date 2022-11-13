@@ -7,6 +7,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true
+  validates :email, uniqueness: true
 
   has_many :requests
   has_many :inbound_requests, class_name: 'Request', foreign_key: "friend_id"
@@ -32,16 +33,22 @@ class User < ApplicationRecord
 
   def send_invitation(user)
     requests.create(friend_id: user.id) unless self == user || Request.exists?(self.id, user.id)
+    user.notifications.build({ title: "#{self.full_name} has added you as a friend!", notif_type: "invite", link: "/users/#{self.id}" }).save
   end
 
   def accept_invitation(user)
     request = Request.find_by(user_id: user.id, friend_id: self.id)
     request.confirmed = true
     request.save
+    current_user.notifications.find_by(link: "/users/#{user.id}").destroy
+    user.notifications.build({ title: "#{self.full_name} has accepted your friend request!", notif_type: "accept", link: "/users/#{self.id}" }).save
   end
 
   def remove_friendship(user)
     request = Request.find(user.id, self.id)
+    if(current_user.notifications.find_by(link: "/users/#{user.id}"))
+      current_user.notifications.find_by(link: "/users/#{user.id}").destroy
+    end
     request.destroy
   end
 end

@@ -1,13 +1,23 @@
-<% @notifications.each do |n| %>
-  <div class="box dropdown-item">
+ <% @notifications.each do |n| %>
+  <% user = n.get_object %>
+  <div class="box dropdown-item" style="width:max-content;">
     <div class="level">
-      <div class="level-left">
+      <div class="level-left pr-2">
         <span class="level-item icon is-small"><%= image_tag('bell-ring-outline.svg') %></span>
         <p class="level-item"><%= n.title %></p>
       </div>
+      <span></span>
       <div class="level-right">
-        BTN
+        <% case n.notif_type %>
+        <% when "invite" %>
+          <%= button_to "Accept", accept_friendship_user_path(user), class: "button is-small is-success" %>
+          <%= button_to "Decline", remove_friendship_user_path(user), class: "button is-small is-danger" %>
+        <% else %>
+        <% end %>
+        <span>     </span>
+        <%= button_to "", notification_path(n), method: :delete, class: "delete is-small"%>
       </div>
+
     </div>
   </div>
 <% end %>

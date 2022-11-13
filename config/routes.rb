@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get :friends
   end
 
+  resources :notifications, only: [:destroy]
   # Defines the root path route ("/")
   root "static_pages#about"
 end

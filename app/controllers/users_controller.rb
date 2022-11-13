@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   def remove_friendship
     current_user.remove_friendship(User.find(params[:id]))
     respond_to do |format|
-      format.html { redirect_to users_path, alert: 'Friend removed.' }
+      format.html { redirect_back fallback_location: users_path, alert: 'Friend removed.' }
       format.json { head :no_content }
     end
   end

@@ -9,6 +9,10 @@ nav.navbar {
   display: block;
 }
 
+#notif-dd:hover>.dropdown-menu {
+  display: block;
+}
+
 .dropdown-content+p:hover {
   background-color: $highlight;
 }

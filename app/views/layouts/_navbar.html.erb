@@ -19,19 +19,21 @@
     </div>
     <div class="navbar-end">
       <% if user_signed_in? %>
-        <div class="navbar-item" id="dd">
-          <div class="dropdown">
-            <span class="icon">
-              <%= image_tag("bell-ring-outline.svg") %>
-            </span>
-          </div>
-          <div class="dropdown-menu" id="dropdown-menu" role="menu">
-            <div class="dropdown-content">
-              <% if @notifications.empty? %>
-                <p class="dropdown-item">You have no new notifications!</p>
-              <% else %>
-                <%= render 'layouts/notifications' %>
-              <% end %>
+        <div class="navbar-item">
+          <div class="dropdown is-right" id="notif-dd">
+            <div class="dropdown-trigger">
+              <span class="icon">
+                <%= image_tag("bell-ring-outline.svg") %>
+              </span>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <% if @notifications.empty? %>
+                  <p class="dropdown-item">You have no new notifications!</p>
+                <% else %>
+                  <%= render 'layouts/notifications' %>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
