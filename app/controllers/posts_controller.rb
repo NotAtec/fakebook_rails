@@ -3,7 +3,10 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    posts = current_user.friends.map { |friend| User.find(friend).posts }.flatten
+    posts += current_user.posts
+    posts.sort_by! &:created_at
+    @posts = posts.reverse
   end
 
   # GET /posts/1 or /posts/1.json

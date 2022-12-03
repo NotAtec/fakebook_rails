@@ -1,0 +1,8 @@
+<div class="column is-half">
+  <% @posts.each do |post| %>
+    <%= link_to post_path(post) do %>
+      <%= render 'post', post: post %>
+      <br>
+    <% end %>
+  <% end %>
+</div>

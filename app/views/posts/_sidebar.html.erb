@@ -1,0 +1,35 @@
+<div class="column is-one-quarter">
+  <nav class="panel">
+    <p class="panel-heading">Profile</p>
+    <%= link_to user_path(current_user) do%>
+      <div class="panel-block">
+        <article class="media">
+          <div class="media-left">
+            <figure class="image is-64x64"><img src="https://static.thenounproject.com/png/574704-200.png" alt="You"></figure>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <p><strong><%= current_user.full_name %></strong></p>
+            </div>
+          </div>
+        </article>
+      </div>
+    <% end %>
+    <div class="panel-block">
+      <div class="level is-mobile">
+        <div class="level-item has-centered-text">
+          <div>
+            <p class="heading">Posts</p>
+            <p class="title is-6"><%= current_user.posts.count %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </nav>
+  <%= button_to "New Post", new_post_path(@post), class: "button is-info", method: :get %>
+  <br>
+  <%= link_to "Friendlist", user_friends_path(current_user)%>
+  <p>Your Posts</p>
+  <p>Your Liked Posts</p>
+</div>
