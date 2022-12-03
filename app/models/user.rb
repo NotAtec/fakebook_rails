@@ -9,6 +9,7 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :email, uniqueness: true
 
+  has_many :posts, foreign_key: :author_id, dependent: :destroy
   has_many :requests
   has_many :inbound_requests, class_name: 'Request', foreign_key: "friend_id"
   has_many :notifications

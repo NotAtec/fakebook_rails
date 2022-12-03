@@ -1,0 +1,12 @@
+<div class="section" >
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <%= link_to posts_path, class: "is-size-7" do%>
+          <b>Back to Timeline</b>
+        <% end %>
+        <%= render "form", post: @post %>
+      </div>
+    </div>
+  </div>
+</div>
