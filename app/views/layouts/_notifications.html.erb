@@ -1,5 +1,4 @@
  <% @notifications.each do |n| %>
-  <% user = n.get_object %>
   <div class="box dropdown-item" style="width:max-content;">
     <div class="level">
       <div class="level-left pr-2">
@@ -10,14 +9,16 @@
       <div class="level-right">
         <% case n.notif_type %>
         <% when "invite" %>
-          <%= button_to "Accept", accept_friendship_user_path(user), class: "button is-small is-success" %>
-          <%= button_to "Decline", remove_friendship_user_path(user), class: "button is-small is-danger" %>
-        <% else %>
-        <% end %>
-        <span>     </span>
-        <%= button_to "", notification_path(n), method: :delete, class: "delete is-small"%>
-      </div>
-
+        <% user = n.get_object %>
+        <%= button_to "Accept", accept_friendship_user_path(user), class: "button is-small is-success" %>
+        <%= button_to "Decline", remove_friendship_user_path(user), class: "button is-small is-danger" %>
+        <% when "post" %>
+        <%= link_to "View Post", post_path(n.link), class: "button is-small is-info" %>
+      <% else %>
+      <% end %>
+      <span>&nbsp;&nbsp;</span>
+      <%= button_to "", notification_path(n), method: :delete, class: "delete is-small"%>
     </div>
   </div>
+</div>
 <% end %>
