@@ -15,4 +15,8 @@ class Comment < ApplicationRecord
   def author
     user
   end
+
+  def comment_notification
+    User.find(post.author.id).notifications.build({ title: "#{author.full_name} has commented on your post!", notif_type: "post", link: "#{post.id}" }).save
+  end
 end

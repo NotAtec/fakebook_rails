@@ -33,10 +33,9 @@
           <% end %>
       <% end %>
   </div>
-  <footer class="card-footer">
-    <% if current_user == comment.author %>
-      <a href="<%= edit_post_comment_path(comment) %>" class="card-footer-item">Edit</a>
-      <a href="<%= post_comment_path(comment) %>" data-method="delete" class="card-footer-item">Delete</a>
-    <% end %>
-  </footer>
+  <% if current_user == comment.author %>
+    <footer class="card-footer">
+      <%= link_to "Delete", comment_path(comment), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "card-footer-item" %>
+    </footer>
+  <% end %>
 </div>

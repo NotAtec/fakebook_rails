@@ -9,8 +9,11 @@
       </div>
       <br>
       <!-- comment -->
+      <%= render 'comment_form', comment: @comment %>
+      <br>
+      
       <% @comments.each do |comment| %>
-        <%= render 'comment', comment: comment %>
+        <%= render 'comment', comment: comment, post: @post %>
         <br>
       <% end %>
     </div>
