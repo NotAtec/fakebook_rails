@@ -1,0 +1,42 @@
+<div id="<%= dom_id comment %>" class="card">
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+        <figure class="image is-48x48">
+          <%= image_tag "https://static.thenounproject.com/png/574704-200.png", alt: "Placeholder image" %>
+        </figure>
+      </div>
+      <div class="media-content">
+        <p class="title is-6"><%= comment.author.full_name %></p>
+      </div>
+    </div>
+    <div class="content">
+      <%= comment.body %>
+      <br>
+      <p class="subtitle is-7">
+        <time datetime="2016-1-1"><%= comment.created_at.strftime("%B %d, %Y") %></time>
+      </p>
+      <br>
+      <% if comment.liked_by(current_user) %>
+          <%= button_to like_path(comment.userLike(current_user)),  method: :delete, class: "button" do %>
+            <span class="icon">
+              <%= image_tag("heart.svg") %>
+            </span>
+            <span>Unlike</span>
+          <% end %>
+      <% else %>
+          <%= button_to likes_path, params: {likeable_id: comment.id, likeable_type: 'Comment'}, method: :post, class: "button" do %>
+            <span class="icon">
+              <%= image_tag("heart-outline.svg") %>
+            </span>
+            <span>Like</span>
+          <% end %>
+      <% end %>
+  </div>
+  <footer class="card-footer">
+    <% if current_user == comment.author %>
+      <a href="<%= edit_post_comment_path(comment) %>" class="card-footer-item">Edit</a>
+      <a href="<%= post_comment_path(comment) %>" data-method="delete" class="card-footer-item">Delete</a>
+    <% end %>
+  </footer>
+</div>

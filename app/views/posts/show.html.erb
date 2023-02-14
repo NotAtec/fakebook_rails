@@ -6,6 +6,13 @@
         <b>Back to Posts</b>
       <% end %>
       <%= render @post %>
+      </div>
+      <br>
+      <!-- comment -->
+      <% @comments.each do |comment| %>
+        <%= render 'comment', comment: comment %>
+        <br>
+      <% end %>
     </div>
   </div>
 </div>

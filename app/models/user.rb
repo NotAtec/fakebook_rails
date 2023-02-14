@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_many :requests
   has_many :inbound_requests, class_name: 'Request', foreign_key: "friend_id"
   has_many :notifications
+  
+  has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_posts, through: :likes, source: :likeable, source_type: 'Post'
   has_many :liked_comments, through: :likes, source: :likeable, source_type: 'Comment'
