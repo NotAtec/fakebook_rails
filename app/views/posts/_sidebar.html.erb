@@ -28,8 +28,9 @@
     
   </nav>
   <%= button_to "New Post", new_post_path(@post), class: "button is-info", method: :get %>
+  
   <br>
-  <%= link_to "Friendlist", user_friends_path(current_user)%>
+  <%= link_to "Friendlist", users_path%>
   <p>Your Posts</p>
   <p>Your Liked Posts</p>
 </div>
