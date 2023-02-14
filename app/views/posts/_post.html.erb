@@ -19,10 +19,26 @@
       </p>
     </div>
   </div>
-  <% if current_page?(post_path(post)) && current_user == post.author %>
-    <footer class="card-footer">
-      <a href="<%= edit_post_path(post) %>" class="card-footer-item">Edit</a>
-      <a href="<%= post_path(post) %>" data-method="delete" class="card-footer-item">Delete</a>
-    </footer>
-  <% end %>
-</div>
+  <footer class="card-footer">
+    <% if current_page?(post_path(post)) %>
+      <% if post.liked_by(current_user) %>
+        <%= button_to like_path(post.userLike(current_user)),  method: :delete, class: "button card-footer-item" do %>
+          <span class="icon">
+            <%= image_tag("heart.svg") %>
+          </span>
+          <span>Unlike</span>
+        <% end %>
+      <% else %>
+        <%= button_to likes_path, params: {likeable_id: post.id, likeable_type: 'Post'}, method: :post, class: "button card-footer-item" do %>
+          <span class="icon">
+            <%= image_tag("heart-outline.svg") %>
+          </span>
+          <span> Like</span>
+        <% end %>
+      <% end %>
+      <% if current_user == post.author %>
+        <a href="<%= edit_post_path(post) %>" class="card-footer-item">Edit</a>
+        <a href="<%= post_path(post) %>" data-method="delete" class="card-footer-item">Delete</a>
+      <% end %>
+    <% end %>
+  </footer>

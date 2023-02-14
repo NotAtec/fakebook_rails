@@ -2,7 +2,25 @@
   <% @posts.each do |post| %>
     <%= link_to post_path(post) do %>
       <%= render 'post', post: post %>
+    <% end %>  
+      <footer class="card-footer">
+        <% if post.liked_by(current_user) %>
+          <%= button_to like_path(post.userLike(current_user)),  method: :delete, class: "button card-footer-item" do %>
+            <span class="icon">
+              <%= image_tag("heart.svg") %>
+            </span>
+            <span>Unlike</span>
+          <% end %>
+        <% else %>
+          <%= button_to likes_path, params: {likeable_id: post.id, likeable_type: 'Post'}, method: :post, class: "button card-footer-item" do %>
+            <span class="icon">
+              <%= image_tag("heart-outline.svg") %>
+            </span>
+            <span> Like</span>
+          <% end %>
+        <% end %>
+      </footer>
+      </div>
       <br>
-    <% end %>
   <% end %>
 </div>

@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   end
 
   resources :notifications, only: [:destroy]
+  resources :likes, only: [:create, :destroy]
+
   # Defines the root path route ("/")
   root "static_pages#about"
 end
