@@ -7,15 +7,13 @@
       <% end %>
       <%= render @post %>
       </div>
-      <br>
-      <!-- comment -->
-      <%= render 'comment_form', comment: @comment %>
-      <br>
-      
-      <% @comments.each do |comment| %>
-        <%= render 'comment', comment: comment, post: @post %>
-        <br>
-      <% end %>
-    </div>
+    <br>
+    <!-- comment -->
+    <%= render 'comment_form', comment: @comment %>
+    <br>
+    <% @comments.each do |comment| %>
+      <%= render 'comment', comment: comment, post: @post %>
+      <hr>
+    <% end %>
   </div>
 </div>
