@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_post, only: %i[ create ]
+  before_action :authenticate_user!
 
   # GET /comments/new
   def new

@@ -14,4 +14,12 @@ class ApplicationController < ActionController::Base
   def load_notifications
     @notifications = current_user.notifications
   end
+
+  def authenticate_user!
+    if user_signed_in?
+      super
+    else
+      redirect_to new_user_session_path, :notice => 'Please Login or Sign Up to continue.'
+    end
+  end
 end

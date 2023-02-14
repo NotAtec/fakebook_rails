@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
+  
   def index
     # all users listed here with friend options (request, accept, remove)
     @users = User.all
@@ -42,7 +43,7 @@ class UsersController < ApplicationController
   end
 
   def accept_friendship
-    current_user.accept_invitation(User.find(params[:id]))
+    current_user.accept_invitation(current_user, User.find(params[:id]))
     respond_to do |format|
       format.html { redirect_to users_path, notice: 'Friend request accepted.' }
       format.json { head :no_content }
@@ -50,7 +51,7 @@ class UsersController < ApplicationController
   end
 
   def remove_friendship
-    current_user.remove_friendship(User.find(params[:id]))
+    current_user.remove_friendship(current_user, User.find(params[:id]))
     respond_to do |format|
       format.html { redirect_back fallback_location: users_path, alert: 'Friend removed.' }
       format.json { head :no_content }

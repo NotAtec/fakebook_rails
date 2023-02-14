@@ -42,18 +42,18 @@ class User < ApplicationRecord
     user.notifications.build({ title: "#{self.full_name} has added you as a friend!", notif_type: "invite", link: "/users/#{self.id}" }).save
   end
 
-  def accept_invitation(user)
+  def accept_invitation(cuser, user)
     request = Request.find_by(user_id: user.id, friend_id: self.id)
     request.confirmed = true
     request.save
-    current_user.notifications.find_by(link: "/users/#{user.id}").destroy
+    cuser.notifications.find_by(link: "/users/#{user.id}").destroy
     user.notifications.build({ title: "#{self.full_name} has accepted your friend request!", notif_type: "accept", link: "/users/#{self.id}" }).save
   end
 
-  def remove_friendship(user)
+  def remove_friendship(cuser, user)
     request = Request.find(user.id, self.id)
-    if(current_user.notifications.find_by(link: "/users/#{user.id}"))
-      current_user.notifications.find_by(link: "/users/#{user.id}").destroy
+    if(cuser.notifications.find_by(link: "/users/#{user.id}"))
+      cuser.notifications.find_by(link: "/users/#{user.id}").destroy
     end
     request.destroy
   end
